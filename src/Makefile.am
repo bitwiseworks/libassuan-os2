@@ -43,7 +43,7 @@ else
 libassuan_version_script_cmd =
 endif
 
-CLEANFILES = mkheader assuan.h
+CLEANFILES = mkheader$(EXEEXT) assuan.h
 
 BUILT_SOURCES = assuan.h
 
@@ -148,7 +148,7 @@ install-exec-hook:
               $(DESTDIR)$(bindir)/gpgcedev.dll
 endif
 
-mkheader: mkheader.c Makefile
+mkheader$(EXEEXT): mkheader.c Makefile
 	$(CC_FOR_BUILD) -I. -I$(srcdir) -o $@ $(srcdir)/mkheader.c
 
 assuan.h: assuan.h.in mkheader $(parts_of_assuan_h)
