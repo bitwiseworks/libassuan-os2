@@ -75,7 +75,6 @@ AC_SUBST(LIBASSUAN_LT_REVISION)
 
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([serial-tests dist-bzip2 no-dist-gzip])
-AM_MAINTAINER_MODE
 AC_CONFIG_SRCDIR(src/assuan.h.in)
 AC_CONFIG_MACRO_DIR(m4)
 AM_CONFIG_HEADER(config.h)
