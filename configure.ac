@@ -226,6 +226,7 @@ have_dosish_system=no
 have_w32_system=no
 have_w64_system=no
 have_w32ce_system=no
+have_os2_system=no
 case "${host}" in
     *-linux*)
         if test "$GCC" = yes; then
@@ -251,6 +252,9 @@ case "${host}" in
         AC_DEFINE(_XOPEN_SOURCE_EXTENDED, 1, Activate extensions on Solaris)
         AC_DEFINE(__EXTENSIONS__, 1, Activate extensions on Solaris)
         ;;
+    *-os2*)
+        have_os2_system=yes
+        ;;
 esac
 
 if test "$have_dosish_system" = yes; then
@@ -270,9 +274,13 @@ if test "$have_w32_system" = yes; then
        AC_DEFINE(HAVE_W32CE_SYSTEM,1,[Defined if we run on WindowsCE])
     fi
 fi
+if test "$have_os2_system" = yes; then
+    AC_DEFINE(HAVE_OS2_SYSTEM,1,[Defined if we run on a OS/2 API based system])
+fi
 AM_CONDITIONAL(HAVE_W32_SYSTEM, test "$have_w32_system" = yes)
 AM_CONDITIONAL(HAVE_W32CE_SYSTEM, test "$have_w32ce_system" = yes)
 AM_CONDITIONAL(HAVE_W64_SYSTEM, test "$have_w64_system" = yes)
+AM_CONDITIONAL(HAVE_OS2_SYSTEM, test "$have_os2_system" = yes)
 
 
 #

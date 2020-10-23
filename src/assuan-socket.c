@@ -708,7 +708,7 @@ socks5_connect (assuan_context_t ctx, assuan_fd_t sock,
   union {
     struct sockaddr *addr;
     struct sockaddr_in *addr_in;
-#ifndef __OS2__
+#ifndef HAVE_OS2_SYSTEM
     struct sockaddr_in6 *addr_in6;
 #endif
   } addru;
@@ -879,7 +879,7 @@ socks5_connect (assuan_context_t ctx, assuan_fd_t sock,
       buffer[buflen++] = (hostport >> 8); /* DST.PORT */
       buffer[buflen++] = hostport;
     }
-#ifndef __OS2__
+#ifndef HAVE_OS2_SYSTEM
   else if (addr->sa_family == AF_INET6)
     {
       buffer[3] = 4; /* ATYP = IPv6 */
@@ -965,7 +965,7 @@ use_socks (struct sockaddr *addr)
   union {
     struct sockaddr *addr;
     struct sockaddr_in *addr_in;
-#ifndef __OS2__
+#ifndef HAVE_OS2_SYSTEM
     struct sockaddr_in6 *addr_in6;
 #endif
   } addru;
@@ -974,7 +974,7 @@ use_socks (struct sockaddr *addr)
 
   if (!tor_mode)
     return 0;
-#ifndef __OS2__
+#ifndef HAVE_OS2_SYSTEM
   else if (addr->sa_family == AF_INET6)
     {
       const unsigned char *s;

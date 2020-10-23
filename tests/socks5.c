@@ -35,7 +35,7 @@
 # include <sys/socket.h>
 # include <netdb.h>
 #endif /*!HAVE_W32_SYSTEM*/
-#ifdef __OS2__
+#ifdef HAVE_OS2_SYSTEM
 # include <libcx/net.h>
 #endif
 
