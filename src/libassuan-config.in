@@ -119,7 +119,7 @@ if test "$echo_host" = "yes"; then
 fi
 
 if test "$echo_cflags" = "yes"; then
-    if test "@includedir@" != "/usr/include" ; then
+    if test "@includedir@" != "/@unixroot/usr/include" ; then
       includes="-I@includedir@"
       for i in $cflags ; do
 	if test "$i" = "-I@includedir@" ; then
@@ -131,7 +131,7 @@ if test "$echo_cflags" = "yes"; then
 fi
 
 if test "$echo_libs" = "yes"; then
-    if test "@libdir@" != "/usr/lib" ; then
+    if test "@libdir@" != "/@unixroot/usr/lib" ; then
       libdirs="-L@libdir@"
       for i in $lib $extralibs ; do
 	if test "$i" = "-L@libdir@" ; then
