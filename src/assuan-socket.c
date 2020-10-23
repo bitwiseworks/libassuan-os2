@@ -708,7 +708,9 @@ socks5_connect (assuan_context_t ctx, assuan_fd_t sock,
   union {
     struct sockaddr *addr;
     struct sockaddr_in *addr_in;
+#ifndef __OS2__
     struct sockaddr_in6 *addr_in6;
+#endif
   } addru;
   unsigned char buffer[22+512]; /* The extra 512 gives enough space
                                    for username/password or the
@@ -877,6 +879,7 @@ socks5_connect (assuan_context_t ctx, assuan_fd_t sock,
       buffer[buflen++] = (hostport >> 8); /* DST.PORT */
       buffer[buflen++] = hostport;
     }
+#ifndef __OS2__
   else if (addr->sa_family == AF_INET6)
     {
       buffer[3] = 4; /* ATYP = IPv6 */
@@ -884,6 +887,7 @@ socks5_connect (assuan_context_t ctx, assuan_fd_t sock,
       memcpy (buffer+20, &addru.addr_in6->sin6_port, 2);          /* DST.PORT */
       buflen = 22;
     }
+#endif
   else
     {
       buffer[3] = 1; /* ATYP = IPv4 */
@@ -961,13 +965,16 @@ use_socks (struct sockaddr *addr)
   union {
     struct sockaddr *addr;
     struct sockaddr_in *addr_in;
+#ifndef __OS2__
     struct sockaddr_in6 *addr_in6;
+#endif
   } addru;
 
   addru.addr = addr;
 
   if (!tor_mode)
     return 0;
+#ifndef __OS2__
   else if (addr->sa_family == AF_INET6)
     {
       const unsigned char *s;
@@ -982,6 +989,7 @@ use_socks (struct sockaddr *addr)
 
       return 0; /* This is the loopback address.  */
     }
+#endif
   else if (addr->sa_family == AF_INET)
     {
       if (*(unsigned char*)&addru.addr_in->sin_addr.s_addr == 127)
