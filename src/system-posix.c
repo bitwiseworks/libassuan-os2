@@ -41,10 +41,12 @@
 # include <dirent.h>
 #endif /*__linux__ */
 
-
 #include "assuan-defs.h"
 #include "debug.h"
 
+#ifdef HAVE_OS2_SYSTEM
+#define pipe(A) socketpair(AF_UNIX, SOCK_STREAM, 0, A)
+#endif
 
 
 
