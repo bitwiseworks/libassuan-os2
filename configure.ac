@@ -147,6 +147,9 @@ case "${host}" in
         AC_DEFINE(_DARWIN_C_SOURCE, 900000L,
                   Expose all libc features (__DARWIN_C_FULL))
         ;;
+    *-os2*)
+        check_descriptor_passing=no
+        ;;
 esac
 
 AM_CONDITIONAL(HAVE_LD_VERSION_SCRIPT, test "$have_ld_version_script" = "yes")
