@@ -47,7 +47,7 @@
 # define ASSUAN_GCC_A_PURE
 #endif
 
-#ifndef HAVE_W32_SYSTEM
+#if !defined(HAVE_W32_SYSTEM) && !defined(HAVE_OS2_SYSTEM)
 #define DIRSEP_C '/'
 #else
 #define DIRSEP_C '\\'
