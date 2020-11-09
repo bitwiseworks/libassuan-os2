@@ -1090,7 +1090,11 @@ _assuan_sock_connect (assuan_context_t ctx, assuan_fd_t sockfd,
           if (unaddr)
             {
               res = _assuan_connect (ctx, sockfd, (struct sockaddr *)unaddr,
+#ifdef __OS2__
+                                     sizeof(struct sockaddr_un));
+#else
                                      SUN_LEN (unaddr));
+#endif
               free (unaddr);
               return res;
             }
@@ -1317,6 +1321,16 @@ _assuan_sock_set_sockaddr_un (const char *fname, struct sockaddr *addr,
       gpg_err_set_errno (ENAMETOOLONG);
       return -1;
     }
+
+#ifdef __OS2__
+      /* we need \socket\anything, so change / to \ */
+      char *p;
+      for (p = fname; *p; p++)
+      {
+        if (*p == '/')
+          *p = '\\';
+      }
+#endif
 
   memset (unaddr, 0, sizeof *unaddr);
   unaddr->sun_family = AF_LOCAL;

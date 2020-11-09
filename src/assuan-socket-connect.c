@@ -68,7 +68,6 @@
 	               + strlen ((ptr)->sun_path))
 #endif
 
-
 #undef WITH_IPV6
 #if defined (AF_INET6) && defined(PF_INET) \
     && defined (INET6_ADDRSTRLEN) && defined(HAVE_INET_PTON)
@@ -240,7 +239,11 @@ assuan_socket_connect (assuan_context_t ctx, const char *name,
                                         &redirected))
         return _assuan_error (ctx, gpg_err_code_from_syserror ());
 
+#ifdef __OS2__
+      len = sizeof(struct sockaddr_un);
+#else
       len = SUN_LEN (&srvr_addr_un);
+#endif
       srvr_addr = (struct sockaddr *)&srvr_addr_un;
     }
   else
