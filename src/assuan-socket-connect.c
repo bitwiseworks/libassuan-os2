@@ -239,7 +239,7 @@ assuan_socket_connect (assuan_context_t ctx, const char *name,
                                         &redirected))
         return _assuan_error (ctx, gpg_err_code_from_syserror ());
 
-#ifdef __OS2__
+#ifdef HAVE_OS2_SYSTEM
       len = sizeof(struct sockaddr_un);
 #else
       len = SUN_LEN (&srvr_addr_un);

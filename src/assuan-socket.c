@@ -1090,7 +1090,7 @@ _assuan_sock_connect (assuan_context_t ctx, assuan_fd_t sockfd,
           if (unaddr)
             {
               res = _assuan_connect (ctx, sockfd, (struct sockaddr *)unaddr,
-#ifdef __OS2__
+#ifdef HAVE_OS2_SYSTEM
                                      sizeof(struct sockaddr_un));
 #else
                                      SUN_LEN (unaddr));
@@ -1322,7 +1322,7 @@ _assuan_sock_set_sockaddr_un (const char *fname, struct sockaddr *addr,
       return -1;
     }
 
-#ifdef __OS2__
+#ifdef HAVE_OS2_SYSTEM
       /* we need \socket\anything, so change / to \ */
       char *p;
       for (p = fname; *p; p++)
